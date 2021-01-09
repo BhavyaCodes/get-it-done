@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import useInputState from "../hooks/useInputState";
 
 function NewGoalForm({ setGoals }) {
@@ -12,7 +13,12 @@ function NewGoalForm({ setGoals }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const newGoal = { name, description: desc, timeAdded: new Date() };
+    const newGoal = {
+      _id: uuidv4(),
+      name,
+      description: desc,
+      timeAdded: new Date(),
+    };
     setGoals((prevGoals) => {
       return [...prevGoals, newGoal];
     });

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import useLocalStorageState from "./hooks/useLocalStorageState";
 
 import DisplayGoals from "./components/DisplayGoals";
@@ -8,12 +9,14 @@ import "./App.css";
 function App() {
   const [goals, setGoals] = useLocalStorageState("goals", [
     {
+      _id: uuidv4(),
       name: "goal 1",
       description:
         "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print",
       timeAdded: new Date(),
     },
     {
+      _id: uuidv4(),
       name: "goal 2",
       description:
         "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print",
