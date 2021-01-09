@@ -1,6 +1,7 @@
 import React from "react";
 
-function DisplayGoals() {
+function DisplayGoals({ goals }) {
+  console.log(goals);
   return <div>DisplayGoals</div>;
 }
 
