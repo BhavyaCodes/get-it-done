@@ -6,6 +6,8 @@ import NewGoalForm from "./components/NewGoalForm";
 
 import "./App.css";
 
+// testing
+
 function App() {
   const [goals, setGoals] = useLocalStorageState("goals", [
     {
