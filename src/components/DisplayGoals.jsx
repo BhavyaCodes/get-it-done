@@ -11,7 +11,6 @@ function DisplayGoals({ goals }) {
     ));
   };
 
-  console.log(goals);
   return <div>{renderGoals()}</div>;
 }
 
