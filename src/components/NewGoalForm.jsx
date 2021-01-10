@@ -12,6 +12,7 @@ function NewGoalForm({ setGoals, globalHashTags }) {
   const resetForm = () => {
     resetName();
     resetDesc();
+    setHashTags([]);
   };
 
   const handleFormSubmit = (e) => {
