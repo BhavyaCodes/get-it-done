@@ -15,7 +15,7 @@ function DisplayGoals({ goals }) {
         <h4>{goal.name}</h4>
         <p>{goal.description}</p>
         <p>{new Date(goal.timeAdded).toString()}</p>
-        {goal?.hashTags?.length &&
+        {goal?.hashTags &&
           goal?.hashTags?.length !== 0 &&
           renderHashTags(goal.hashTags)}
       </div>
