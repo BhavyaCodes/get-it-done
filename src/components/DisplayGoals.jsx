@@ -10,16 +10,16 @@ import { useTheme } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 
 function DisplayGoals({ goals, setGoals }) {
-  const [open, setOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setModalOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setModalOpen(false);
   };
 
   const renderHashTags = (hashTags) => {
@@ -49,7 +49,7 @@ function DisplayGoals({ goals, setGoals }) {
         </button>
         <Dialog
           fullScreen={fullScreen}
-          open={open}
+          open={modalOpen}
           onClose={handleClose}
           aria-labelledby="responsive-dialog-title"
         >
