@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import useLocalStorageState from "./hooks/useLocalStorageState";
 
-import DisplayGoals from "./components/DisplayGoals";
+import GoalList from "./components/GoalList";
 import NewGoalForm from "./components/NewGoalForm";
 
 import "./App.css";
@@ -34,7 +34,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <NewGoalForm setGoals={setGoals} globalHashTags={globalHashTags} />
-        <DisplayGoals goals={goals} setGoals={setGoals} />
+        <GoalList goals={goals} setGoals={setGoals} />
       </header>
     </div>
   );
