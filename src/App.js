@@ -7,6 +7,13 @@ import NewGoalForm from "./components/NewGoalForm";
 import "./App.css";
 
 function App() {
+  const [globalHashTags, setGlobalHashTags] = useLocalStorageState("hashtags", [
+    "Health",
+    "love",
+    "personal",
+    "family",
+    "academic",
+  ]);
   const [goals, setGoals] = useLocalStorageState("goals", [
     {
       _id: uuidv4(),
@@ -26,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <NewGoalForm setGoals={setGoals} />
+        <NewGoalForm setGoals={setGoals} globalHashTags={globalHashTags} />
         <DisplayGoals goals={goals} setGoals={setGoals} />
       </header>
     </div>
