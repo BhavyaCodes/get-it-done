@@ -9,6 +9,10 @@ function DisplayGoals({ goals }) {
     ));
   };
 
+  const handleDeleteGoal = (goalId) => {
+    console.log(goalId);
+  };
+
   const renderGoals = () => {
     return goals.map((goal) => (
       <div key={goal._id}>
@@ -18,6 +22,14 @@ function DisplayGoals({ goals }) {
         {goal?.hashTags &&
           goal?.hashTags?.length !== 0 &&
           renderHashTags(goal.hashTags)}
+        <button
+          type="button"
+          onClick={() => {
+            handleDeleteGoal(goal._id);
+          }}
+        >
+          Delete Goal
+        </button>
       </div>
     ));
   };
