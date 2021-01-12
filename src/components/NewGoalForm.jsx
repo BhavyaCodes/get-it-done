@@ -2,6 +2,9 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useInputState from "../hooks/useInputState";
 import HashTagSelector from "./HashTagSelector";
+import styled, { css } from 'styled-components'
+import { StyledLabel } from '../styles/styled'
+
 
 function NewGoalForm({ setGoals, globalHashTags }) {
   const [name, setName, resetName] = useInputState("");
@@ -30,20 +33,54 @@ function NewGoalForm({ setGoals, globalHashTags }) {
     resetForm();
   };
 
+  const StyledButton = styled.button`
+  display: flex;
+  border-radius: 32px;
+  padding: 12px 0 12px 78px;
+  width: 327px;
+  background: transparent;
+  color: #4B3402;
+  border: 1px solid #4B3402;
+  font-size: 18px;
+  font-weight: 700;
+  height: 48px;
+  /* ${props => props.primary && css`
+    background: white;
+    color: black;
+  `} */
+`
+
+const StyledInput = styled.input`
+background: #FDFCFA;
+border: 1px solid #B4AFA2;
+border-radius: 4px;
+width: 327px;
+height: 40px;
+`
+const StyledInputLarge = styled.input`
+background: #FDFCFA;
+border: 1px solid #B4AFA2;
+border-radius: 4px;
+width: 327px;
+height: 80px;
+`
+
+
   return (
     <form onSubmit={handleFormSubmit}>
-      <label>Name</label>
-      <input value={name} onChange={setName} />
-      <br />
-      <label>Description</label>
-      <input value={desc} onChange={setDesc} />
-      <br />
+      <div style={{display: 'flex', justifyContent: 'center'}}><div>
+      <StyledLabel>Title</StyledLabel>
+      <StyledInput value={name} onChange={setName} />
+      <StyledLabel capitalize>Goal</StyledLabel>
+      <StyledInputLarge value={desc} onChange={setDesc} />
+      </div></div>
       <HashTagSelector
         hashTags={hashTags}
         setHashTags={setHashTags}
         globalHashTags={globalHashTags}
       />
-      <button type="submit">Create new goal</button>
+      {/* <button type="submit">Add a new task</button> */}
+      <div style={{display: 'flex', justifyContent: 'center'}}><StyledButton  type="submit">Add a new task<span style={{paddingLeft: '16px'}} >✚</span></StyledButton></div>
     </form>
   );
 }
