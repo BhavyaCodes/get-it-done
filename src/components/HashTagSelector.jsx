@@ -13,16 +13,20 @@ import {
   yellow,
   grey,
 } from "@material-ui/core/colors";
-import Chip from "@material-ui/core/Chip";
 
 function HashTagSelector({ hashTags, setHashTags, globalHashTags }) {
   const handleAddHashTag = (hashTag) => {
+    alert("adding");
     console.log(hashTag);
-    setHashTags((prevHashTags) => [...prevHashTags, hashTag]);
+    setHashTags((prevHashTags) => {
+      return { ...prevHashTags, [hashTag._id]: hashTag };
+    });
   };
   const handleRemoveHashTag = (hashTag) => {
+    alert("removing");
     setHashTags((prevHashTags) => {
-      return prevHashTags.filter((prevHashTag) => hashTag !== prevHashTag);
+      delete prevHashTags[hashTag._id];
+      return { ...prevHashTags };
     });
   };
 
@@ -50,31 +54,31 @@ function HashTagSelector({ hashTags, setHashTags, globalHashTags }) {
 
   return (
     <div>
-      {globalHashTags.map((hashTag) =>
-        hashTags.includes(hashTag) ? (
-          <Chip
-            key={hashTag}
-            color="secondary"
-            label={hashTag}
-            clickable
+      {globalHashTags.map((globalHashTag) =>
+        hashTags[globalHashTag._id] ? (
+          <ColorButton
+            size="small"
+            key={globalHashTag._id}
             onClick={() => {
-              handleRemoveHashTag(hashTag);
-            }}
-          />
-        ) : (
-          <Chip
-            key={hashTag}
-            color="secondary"
-            label={hashTag}
-            clickable
-            onClick={() => {
-              handleAddHashTag(hashTag);
+              handleRemoveHashTag(globalHashTag);
             }}
             variant="outlined"
-          />
+          >
+            {globalHashTag.tag}
+          </ColorButton>
+        ) : (
+          <ColorButton
+            size="small"
+            key={globalHashTag._id}
+            onClick={() => {
+              handleAddHashTag(globalHashTag);
+            }}
+            variant="outlined"
+          >
+            {globalHashTag.tag}
+          </ColorButton>
         )
       )}
-      <ColorButton size="small">Health</ColorButton>
     </div>
   );
 }
