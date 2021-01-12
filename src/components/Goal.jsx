@@ -10,6 +10,31 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 
+import { withStyles } from "@material-ui/core/styles";
+import {
+  red,
+  pink,
+  green,
+  purple,
+  blue,
+  teal,
+  lime,
+  yellow,
+  grey,
+} from "@material-ui/core/colors";
+
+const colors = {
+  red,
+  pink,
+  green,
+  purple,
+  blue,
+  teal,
+  lime,
+  yellow,
+  grey,
+};
+
 function Goal({ goal, setGoals }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
@@ -24,9 +49,27 @@ function Goal({ goal, setGoals }) {
   };
 
   const renderHashTags = (hashTags) => {
-    return hashTags.map((hashTag) => (
-      <Chip key={hashTag} label={hashTag} clickable color="secondary" />
-    ));
+    const chips = [];
+    for (let key in hashTags) {
+      const ColorButton = withStyles((theme) => ({
+        root: {
+          color: theme.palette.getContrastText(
+            colors[hashTags[key].color][500]
+          ),
+          backgroundColor: colors[hashTags[key].color][500],
+          "&:hover": {
+            backgroundColor: colors[hashTags[key].color][700],
+          },
+        },
+      }))(Button);
+
+      chips.push(
+        <ColorButton size="small" key={hashTags[key]._id}>
+          {hashTags[key].tag}
+        </ColorButton>
+      );
+    }
+    return chips;
   };
 
   const handleDeleteGoal = (goalId) => {

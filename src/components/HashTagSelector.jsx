@@ -71,7 +71,7 @@ function HashTagSelector({ hashTags, setHashTags, globalHashTags }) {
           const ColorButton = withStyles((theme) => ({
             root: {
               color: colors[globalHashTag.color][500],
-              backgroundColor: "colors[globalHashTag.color][500]",
+              backgroundColor: "rgba(0,0,0,0)",
               borderColor: colors[globalHashTag.color][500],
               "&:hover": {
                 backgroundColor: colors[globalHashTag.color][700],
