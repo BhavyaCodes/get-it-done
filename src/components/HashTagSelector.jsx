@@ -74,7 +74,7 @@ function HashTagSelector({ hashTags, setHashTags, globalHashTags }) {
           />
         )
       )}
-      <ColorButton>Health</ColorButton>
+      <ColorButton size="small">Health</ColorButton>
     </div>
   );
 }

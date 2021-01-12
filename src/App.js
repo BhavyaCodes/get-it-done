@@ -8,11 +8,11 @@ import "./App.css";
 
 function App() {
   const [globalHashTags, setGlobalHashTags] = useLocalStorageState("hashtags", [
-    "Health",
-    "love",
-    "personal",
-    "family",
-    "academic",
+    { tag: "health", color: "green" },
+    { tag: "love", color: "red" },
+    { tag: "personal", color: "teal" },
+    { tag: "family", color: "lime" },
+    { tag: "academic", color: "blue" },
   ]);
   const [goals, setGoals] = useLocalStorageState("goals", [
     {
