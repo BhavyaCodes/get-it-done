@@ -6,7 +6,7 @@ import HashTagSelector from "./HashTagSelector";
 function NewGoalForm({ setGoals, globalHashTags }) {
   const [name, setName, resetName] = useInputState("");
   const [desc, setDesc, resetDesc] = useInputState("");
-  const [hashTags, setHashTags] = useState([]);
+  const [hashTags, setHashTags] = useState({});
   // time added assumed new Date() for now
 
   const resetForm = () => {
