@@ -31,7 +31,7 @@ function App() {
         "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print",
       timeAdded: new Date(),
       duration: 2000,
-      isActive: true,
+      isActive: false,
     },
   ]);
   return (

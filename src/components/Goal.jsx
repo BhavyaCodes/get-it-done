@@ -39,6 +39,28 @@ function Goal({ goal, setGoals }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const handleStartPause = () => {
+    setGoals((prevGoals) => {
+      return prevGoals.map((prevGoal) => {
+        if (goal._id !== prevGoal._id) {
+          return prevGoal;
+        }
+
+        return {
+          ...prevGoal,
+          latestStartTimeStamp: !prevGoal.isActive ? new Date() : null,
+          ...(prevGoal.isActive && {
+            duration:
+              prevGoal.duration +
+              (new Date().getTime() - prevGoal.latestStartTimeStamp.getTime()) /
+                1000,
+          }),
+          isActive: !prevGoal.isActive,
+        };
+      });
+    });
+  };
+
   const handleClickOpen = () => {
     setModalOpen(true);
   };
@@ -86,7 +108,7 @@ function Goal({ goal, setGoals }) {
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
       <p>{goal.duration}</p>
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={handleStartPause}>
         {goal.isActive ? "pause" : "start"}
       </Button>
       <button type="button" onClick={handleClickOpen}>
