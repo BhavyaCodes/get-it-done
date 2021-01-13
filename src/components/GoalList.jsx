@@ -14,10 +14,26 @@ function GoalList({ goals, setGoals, globalHashTags }) {
     if (!searchText) {
       return setFilteredByTextGoals(goals);
     }
+    const filtered = goals.filter((goal) => {
+      if (
+        goal.name
+          .trim()
+          .toLowerCase()
+          .includes(searchText.trim().toLowerCase()) ||
+        goal.description
+          .trim()
+          .toLowerCase()
+          .includes(searchText.trim().toLowerCase())
+      ) {
+        return true;
+      }
+      return false;
+    });
+    setFilteredByTextGoals(filtered);
   }, [searchText, goals]);
 
   const renderGoals = () => {
-    return goals.map((goal) => (
+    return filteredByTextGoals.map((goal) => (
       <Goal
         goal={goal}
         setGoals={setGoals}
