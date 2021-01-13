@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -38,6 +38,28 @@ function Goal({ goal, setGoals }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [displaySeconds, setDisplaySeconds] = useState(
+    goal.isActive
+      ? goal.duration +
+          (new Date().getTime() -
+            new Date(goal.latestStartTimeStamp).getTime()) /
+            1000
+      : goal.duration
+  );
+  useEffect(() => {
+    setDisplaySeconds(goal.duration);
+  }, [goal.duration]);
+  console.log(displaySeconds);
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (goal.isActive) {
+        setDisplaySeconds((prevDisplaySeconds) => prevDisplaySeconds + 1);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
 
   const handleStartPause = () => {
     setGoals((prevGoals) => {
@@ -52,7 +74,8 @@ function Goal({ goal, setGoals }) {
           ...(prevGoal.isActive && {
             duration:
               prevGoal.duration +
-              (new Date().getTime() - prevGoal.latestStartTimeStamp.getTime()) /
+              (new Date().getTime() -
+                new Date(prevGoal.latestStartTimeStamp).getTime()) /
                 1000,
           }),
           isActive: !prevGoal.isActive,
@@ -107,7 +130,8 @@ function Goal({ goal, setGoals }) {
       {goal?.hashTags &&
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
-      <p>{goal.duration}</p>
+      <p> displaySeconds variable - {displaySeconds}</p>
+      <p>Duration variable - {goal.duration}</p>
       <Button variant="contained" color="primary" onClick={handleStartPause}>
         {goal.isActive ? "pause" : "start"}
       </Button>
