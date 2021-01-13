@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,7 +8,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
 
 import { withStyles } from "@material-ui/core/styles";
 import {
@@ -39,6 +38,51 @@ function Goal({ goal, setGoals }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [displaySeconds, setDisplaySeconds] = useState(
+    goal.isActive
+      ? goal.duration +
+          (new Date().getTime() -
+            new Date(goal.latestStartTimeStamp).getTime()) /
+            1000
+      : goal.duration
+  );
+  useEffect(() => {
+    setDisplaySeconds(goal.duration);
+  }, [goal.duration]);
+  console.log(displaySeconds);
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (goal.isActive) {
+        setDisplaySeconds((prevDisplaySeconds) => prevDisplaySeconds + 1);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
+
+  const handleStartPause = () => {
+    setGoals((prevGoals) => {
+      return prevGoals.map((prevGoal) => {
+        if (goal._id !== prevGoal._id) {
+          return prevGoal;
+        }
+
+        return {
+          ...prevGoal,
+          latestStartTimeStamp: !prevGoal.isActive ? new Date() : null,
+          ...(prevGoal.isActive && {
+            duration:
+              prevGoal.duration +
+              (new Date().getTime() -
+                new Date(prevGoal.latestStartTimeStamp).getTime()) /
+                1000,
+          }),
+          isActive: !prevGoal.isActive,
+        };
+      });
+    });
+  };
 
   const handleClickOpen = () => {
     setModalOpen(true);
@@ -86,6 +130,11 @@ function Goal({ goal, setGoals }) {
       {goal?.hashTags &&
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
+      <p> displaySeconds variable - {displaySeconds}</p>
+      <p>Duration variable - {goal.duration}</p>
+      <Button variant="contained" color="primary" onClick={handleStartPause}>
+        {goal.isActive ? "pause" : "start"}
+      </Button>
       <button type="button" onClick={handleClickOpen}>
         Delete Goal
       </button>

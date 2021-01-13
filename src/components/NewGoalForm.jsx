@@ -23,6 +23,8 @@ function NewGoalForm({ setGoals, globalHashTags }) {
       description: desc,
       timeAdded: new Date(),
       hashTags,
+      duration: 0,
+      isActive: false,
     };
     setGoals((prevGoals) => {
       return [...prevGoals, newGoal];
