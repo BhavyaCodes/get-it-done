@@ -8,7 +8,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
 
 import { withStyles } from "@material-ui/core/styles";
 import {
@@ -86,6 +85,10 @@ function Goal({ goal, setGoals }) {
       {goal?.hashTags &&
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
+      <p>{goal.duration}</p>
+      <Button variant="contained" color="primary">
+        {goal.isActive ? "pause" : "start"}
+      </Button>
       <button type="button" onClick={handleClickOpen}>
         Delete Goal
       </button>
