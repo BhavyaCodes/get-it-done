@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+import useInputState from "../hooks/useInputState";
+import HashTagSelector from "./HashTagSelector";
+
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -34,9 +37,48 @@ const colors = {
   grey,
 };
 
-function EditGoal({ goal, setGoals, globalHashTags }) {
-  console.log(goal, setGoals, globalHashTags);
-  return <h1>EditGoal</h1>;
+function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
+  const [name, setName, resetName] = useInputState(goal.name);
+  const [desc, setDesc, resetDesc] = useInputState(goal.description);
+  const [hashTags, setHashTags] = useState(goal.hashTags);
+
+  const handleUpdateGoal = (e) => {
+    e.preventDefault();
+    console.log("handleUpdateGoal");
+    setGoals((prevGoals) => {
+      return prevGoals.map((prevGoal) => {
+        if (goal._id !== prevGoal._id) {
+          return prevGoal;
+        }
+        return { ...prevGoal, name, description: desc, hashTags };
+      });
+    });
+    setEditing(false);
+  };
+
+  const handleCancel = () => {
+    setEditing(false);
+  };
+
+  return (
+    <form onSubmit={handleUpdateGoal}>
+      <label>Name</label>
+      <input value={name} required onChange={setName} />
+      <br />
+      <label>Description</label>
+      <input value={desc} onChange={setDesc} />
+      <br />
+      <HashTagSelector
+        hashTags={hashTags}
+        setHashTags={setHashTags}
+        globalHashTags={globalHashTags}
+      />
+      <button type="submit">save</button>
+      <button type="button" onClick={handleCancel}>
+        Cancel
+      </button>
+    </form>
+  );
 }
 
 function Goal({ goal, setGoals, globalHashTags }) {
@@ -134,6 +176,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
         goal={goal}
         setGoals={setGoals}
         globalHashTags={globalHashTags}
+        setEditing={setEditing}
       />
     );
   }

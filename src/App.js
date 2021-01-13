@@ -23,6 +23,10 @@ function App() {
       timeAdded: new Date(),
       duration: 1000,
       isActive: false,
+      hashTags: {
+        2: { _id: "2", tag: "personal", color: "teal" },
+        4: { _id: "4", tag: "academic", color: "blue" },
+      },
     },
     {
       _id: uuidv4(),
@@ -32,6 +36,10 @@ function App() {
       timeAdded: new Date(),
       duration: 2000,
       isActive: false,
+      hashTags: {
+        0: { _id: "0", tag: "health", color: "green" },
+        1: { _id: "1", tag: "love", color: "red" },
+      },
     },
   ]);
   return (
