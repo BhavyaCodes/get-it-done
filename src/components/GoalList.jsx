@@ -2,19 +2,18 @@ import React, { useState, useEffect } from "react";
 import Goal from "./Goal";
 import useInputState from "../hooks/useInputState";
 
+import SelectTagFilters from "./SelectTagFilters";
+
 function GoalList({ goals, setGoals, globalHashTags }) {
   const [searchText, setSearchText, resetSearchText] = useInputState("");
   const [selectedHastagIds, setSelectedHashTagIds] = useState([]);
-  const [filteredByTextGoals, setFilteredByTextGoals] = useState(goals);
-
-  console.log(filteredByTextGoals);
+  const [filteredGoals, setFilteredGoals] = useState(goals);
 
   useEffect(() => {
-    console.log("useEffect");
     if (!searchText) {
-      return setFilteredByTextGoals(goals);
+      return setFilteredGoals(goals);
     }
-    const filtered = goals.filter((goal) => {
+    const textFilter = goals.filter((goal) => {
       if (
         goal.name
           .trim()
@@ -29,11 +28,14 @@ function GoalList({ goals, setGoals, globalHashTags }) {
       }
       return false;
     });
-    setFilteredByTextGoals(filtered);
+
+    // const tagFilter = textFilter.filter(goa)
+
+    setFilteredGoals(textFilter);
   }, [searchText, goals]);
 
   const renderGoals = () => {
-    return filteredByTextGoals.map((goal) => (
+    return filteredGoals.map((goal) => (
       <Goal
         goal={goal}
         setGoals={setGoals}
@@ -45,7 +47,12 @@ function GoalList({ goals, setGoals, globalHashTags }) {
 
   return (
     <div>
-      <label>Filter text</label>
+      <label>Search</label>
+      <SelectTagFilters
+        selectedHastagIds={selectedHastagIds}
+        setSelectedHashTagIds={setSelectedHashTagIds}
+        globalHashTags={globalHashTags}
+      />
       <input value={searchText} onChange={setSearchText} />
       {renderGoals()}
     </div>
