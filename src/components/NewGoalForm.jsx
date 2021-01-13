@@ -35,7 +35,7 @@ function NewGoalForm({ setGoals, globalHashTags }) {
   return (
     <form onSubmit={handleFormSubmit}>
       <label>Name</label>
-      <input value={name} onChange={setName} />
+      <input value={name} required onChange={setName} />
       <br />
       <label>Description</label>
       <input value={desc} onChange={setDesc} />

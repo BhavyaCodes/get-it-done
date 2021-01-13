@@ -49,7 +49,6 @@ function Goal({ goal, setGoals }) {
   useEffect(() => {
     setDisplaySeconds(goal.duration);
   }, [goal.duration]);
-  console.log(displaySeconds);
   useEffect(() => {
     let myInterval = setInterval(() => {
       if (goal.isActive) {
@@ -131,7 +130,7 @@ function Goal({ goal, setGoals }) {
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
       <p> displaySeconds variable - {displaySeconds}</p>
-      <p>Duration variable - {goal.duration}</p>
+      {/* <p>Duration variable - {goal.duration}</p> */}
       <Button variant="contained" color="primary" onClick={handleStartPause}>
         {goal.isActive ? "pause" : "start"}
       </Button>
