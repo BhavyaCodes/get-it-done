@@ -38,7 +38,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <NewGoalForm setGoals={setGoals} globalHashTags={globalHashTags} />
-        <GoalList goals={goals} setGoals={setGoals} />
+        <GoalList
+          goals={goals}
+          setGoals={setGoals}
+          globalHashTags={globalHashTags}
+        />
       </header>
     </div>
   );

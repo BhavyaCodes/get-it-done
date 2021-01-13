@@ -34,7 +34,12 @@ const colors = {
   grey,
 };
 
-function Goal({ goal, setGoals }) {
+function EditGoal({ goal, setGoals, globalHashTags }) {
+  console.log(goal, setGoals, globalHashTags);
+  return <h1>EditGoal</h1>;
+}
+
+function Goal({ goal, setGoals, globalHashTags }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -124,7 +129,13 @@ function Goal({ goal, setGoals }) {
   };
 
   if (editing) {
-    return <h1>Hello</h1>;
+    return (
+      <EditGoal
+        goal={goal}
+        setGoals={setGoals}
+        globalHashTags={globalHashTags}
+      />
+    );
   }
 
   return (
