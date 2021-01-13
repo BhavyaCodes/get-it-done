@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+import useInputState from "../hooks/useInputState";
+import HashTagSelector from "./HashTagSelector";
+
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -34,10 +37,55 @@ const colors = {
   grey,
 };
 
-function Goal({ goal, setGoals }) {
+function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
+  const [name, setName, resetName] = useInputState(goal.name);
+  const [desc, setDesc, resetDesc] = useInputState(goal.description);
+  const [hashTags, setHashTags] = useState(goal.hashTags);
+
+  const handleUpdateGoal = (e) => {
+    e.preventDefault();
+    console.log("handleUpdateGoal");
+    setGoals((prevGoals) => {
+      return prevGoals.map((prevGoal) => {
+        if (goal._id !== prevGoal._id) {
+          return prevGoal;
+        }
+        return { ...prevGoal, name, description: desc, hashTags };
+      });
+    });
+    setEditing(false);
+  };
+
+  const handleCancel = () => {
+    setEditing(false);
+  };
+
+  return (
+    <form onSubmit={handleUpdateGoal}>
+      <label>Name</label>
+      <input value={name} required onChange={setName} />
+      <br />
+      <label>Description</label>
+      <input value={desc} onChange={setDesc} />
+      <br />
+      <HashTagSelector
+        hashTags={hashTags}
+        setHashTags={setHashTags}
+        globalHashTags={globalHashTags}
+      />
+      <button type="submit">save</button>
+      <button type="button" onClick={handleCancel}>
+        Cancel
+      </button>
+    </form>
+  );
+}
+
+function Goal({ goal, setGoals, globalHashTags }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [editing, setEditing] = useState(false);
   const [displaySeconds, setDisplaySeconds] = useState(
     goal.isActive
       ? goal.duration +
@@ -49,7 +97,6 @@ function Goal({ goal, setGoals }) {
   useEffect(() => {
     setDisplaySeconds(goal.duration);
   }, [goal.duration]);
-  console.log(displaySeconds);
   useEffect(() => {
     let myInterval = setInterval(() => {
       if (goal.isActive) {
@@ -122,6 +169,18 @@ function Goal({ goal, setGoals }) {
     });
     handleClose();
   };
+
+  if (editing) {
+    return (
+      <EditGoal
+        goal={goal}
+        setGoals={setGoals}
+        globalHashTags={globalHashTags}
+        setEditing={setEditing}
+      />
+    );
+  }
+
   return (
     <div>
       <h4>{goal.name}</h4>
@@ -131,12 +190,19 @@ function Goal({ goal, setGoals }) {
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
       <p> displaySeconds variable - {displaySeconds}</p>
-      <p>Duration variable - {goal.duration}</p>
+      {/* <p>Duration variable - {goal.duration}</p> */}
       <Button variant="contained" color="primary" onClick={handleStartPause}>
         {goal.isActive ? "pause" : "start"}
       </Button>
       <button type="button" onClick={handleClickOpen}>
         Delete Goal
+      </button>
+      <button
+        onClick={() => {
+          setEditing(true);
+        }}
+      >
+        Edit Goal
       </button>
       <Dialog
         fullScreen={fullScreen}
