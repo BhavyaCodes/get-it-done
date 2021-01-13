@@ -38,6 +38,7 @@ function Goal({ goal, setGoals }) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [editing, setEditing] = useState(false);
   const [displaySeconds, setDisplaySeconds] = useState(
     goal.isActive
       ? goal.duration +
@@ -121,6 +122,11 @@ function Goal({ goal, setGoals }) {
     });
     handleClose();
   };
+
+  if (editing) {
+    return <h1>Hello</h1>;
+  }
+
   return (
     <div>
       <h4>{goal.name}</h4>
@@ -136,6 +142,13 @@ function Goal({ goal, setGoals }) {
       </Button>
       <button type="button" onClick={handleClickOpen}>
         Delete Goal
+      </button>
+      <button
+        onClick={() => {
+          setEditing(true);
+        }}
+      >
+        Edit Goal
       </button>
       <Dialog
         fullScreen={fullScreen}
