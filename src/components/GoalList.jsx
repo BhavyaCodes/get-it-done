@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(0),
     paddingRight: theme.spacing(0),
   },
+  searchFilterDiv: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
   input: {
     width: "90%",
   },
@@ -33,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
+    width: "95%",
   },
   searchIconContainer: {
     display: "flex",
@@ -109,31 +114,34 @@ function GoalList({ goals, setGoals, globalHashTags }) {
 
   return (
     <div className={classes.root}>
-      <Paper component="div" className={classes.searchBarRoot}>
-        <InputBase
-          className={classes.input}
-          placeholder="Search Goals"
-          inputProps={{ "aria-label": "search Goals" }}
-          value={searchText}
-          onChange={setSearchText}
-        />
-        <div className={classes.searchIconContainer}>
-          <SearchIcon />
-        </div>
-      </Paper>
+      <div className={classes.searchFilterDiv}>
+        <Paper component="div" className={classes.searchBarRoot}>
+          <InputBase
+            className={classes.input}
+            placeholder="Search Goals"
+            inputProps={{ "aria-label": "search Goals" }}
+            value={searchText}
+            onChange={setSearchText}
+          />
+          <div className={classes.searchIconContainer}>
+            <SearchIcon />
+          </div>
+        </Paper>
+        <IconButton
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <SortIcon />
+        </IconButton>
+      </div>
       <SelectTagFilters
         selectedHastagIds={selectedHastagIds}
         setSelectedHashTagIds={setSelectedHashTagIds}
         globalHashTags={globalHashTags}
       />
-      <IconButton
-        aria-label="more"
-        aria-controls="long-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <SortIcon />
-      </IconButton>
+
       <Menu
         id="long-menu"
         anchorEl={anchorEl}
