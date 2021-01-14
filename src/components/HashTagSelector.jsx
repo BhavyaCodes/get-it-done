@@ -13,6 +13,7 @@ import {
   lime,
   yellow,
   grey,
+  deepOrange,
 } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +47,7 @@ function HashTagSelector({ hashTags, setHashTags, globalHashTags }) {
     lime,
     yellow,
     grey,
+    deepOrange,
   };
 
   return (

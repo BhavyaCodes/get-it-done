@@ -140,6 +140,9 @@ function GoalList({ goals, setGoals, globalHashTags }) {
         </IconButton>
       </div>
       <div className={classes.checkBoxContainer}>
+        <Typography style={{ fontSize: "1.5rem" }}>
+          Select Hashtags to filter by
+        </Typography>
         <SelectTagFilters
           selectedHastagIds={selectedHastagIds}
           setSelectedHashTagIds={setSelectedHashTagIds}

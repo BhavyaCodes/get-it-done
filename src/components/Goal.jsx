@@ -37,6 +37,7 @@ import {
   lime,
   yellow,
   grey,
+  deepOrange,
 } from "@material-ui/core/colors";
 
 const colors = {
@@ -49,6 +50,7 @@ const colors = {
   lime,
   yellow,
   grey,
+  deepOrange,
 };
 
 function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
@@ -358,11 +360,16 @@ function Goal({ goal, setGoals, globalHashTags }) {
           </MenuItem>
         </Menu>
       </div>
-      <Typography variant="body1" className={classes.desc} gutterBottom>
+      <Typography
+        variant="body1"
+        className={classes.desc}
+        gutterBottom
+        style={{ fontSize: "1.4rem" }}
+      >
         {goal.description}
       </Typography>
       {/* <p>{new Date(goal.timeAdded).toString()}</p> */}
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="overline" component="p" gutterBottom>
         {" "}
         You have spent{" "}
         {humanizeDuration(displaySeconds * 1000, { round: true })} on this task
