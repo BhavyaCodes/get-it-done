@@ -5,6 +5,11 @@ import useLocalStorageState from "./hooks/useLocalStorageState";
 import GoalList from "./components/GoalList";
 import NewGoalForm from "./components/NewGoalForm";
 
+import Brightness4Icon from "@material-ui/icons/Brightness4";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
+import IconButton from "@material-ui/core/IconButton";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import Link from "@material-ui/core/Link";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,8 +18,44 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 // import "./App.css";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0),
+    paddingTop: theme.spacing(2),
+  },
+  searchFilterDiv: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  input: {
+    width: "90%",
+  },
+  searchBarRoot: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    width: "95%",
+  },
+  searchIconContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  checkBoxContainer: {
+    padding: theme.spacing(2),
+  },
+  navItemsRight: {
+    margin: "auto",
+    marginRight: 0,
+  },
+}));
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -42,6 +83,43 @@ ElevationScroll.propTypes = {
 };
 
 function App(props) {
+  const classes = useStyles();
+  const [darkState, setDarkState] = useLocalStorageState("darkMode", false);
+  const paletteType = darkState ? "dark" : "light";
+
+  const arcBlue = "#00acc1";
+  const arcOrange = "#ffab40";
+
+  const theme = createMuiTheme({
+    palette: {
+      common: {
+        blue: `${arcBlue}`,
+        orange: `${arcOrange}`,
+      },
+      primary: {
+        main: `${arcBlue}`,
+      },
+      secondary: {
+        main: `${arcOrange}`,
+      },
+      type: paletteType,
+    },
+    overrides: {
+      MuiTableCell: {
+        head: {
+          fontSize: "1rem",
+          fontWeight: 700,
+          color: arcOrange,
+          borderColor: arcOrange,
+        },
+      },
+    },
+  });
+
+  const handleThemeChange = () => {
+    setDarkState(!darkState);
+  };
+
   const [globalHashTags, setGlobalHashTags] = useLocalStorageState("hashtags", [
     { _id: "0", tag: "health", color: "green" },
     { _id: "1", tag: "love", color: "red" },
@@ -80,24 +158,53 @@ function App(props) {
   return (
     <div>
       <CssBaseline />
-      <ElevationScroll {...props}>
-        <AppBar>
-          <Toolbar>
-            <Typography variant="h6">Scroll to Elevate App Bar</Typography>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
-      <Toolbar />
-      <Container>
-        <Box my={2}>
-          <NewGoalForm setGoals={setGoals} globalHashTags={globalHashTags} />
-          <GoalList
-            goals={goals}
-            setGoals={setGoals}
-            globalHashTags={globalHashTags}
-          />
-        </Box>
-      </Container>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <ElevationScroll {...props}>
+          <AppBar>
+            <Toolbar>
+              <Typography variant="h6">Get It Done</Typography>
+              <div className={classes.navItemsRight}>
+                <IconButton
+                  aria-label="toggle dark mode"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="false"
+                  onClick={handleThemeChange}
+                  color="inherit"
+                >
+                  {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+                <Link
+                  href="https://github.com/Juggernaut9/get-it-done"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="inherit"
+                >
+                  <IconButton
+                    aria-label="Github repository link"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    color="inherit"
+                  >
+                    <GitHubIcon />
+                  </IconButton>
+                </Link>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </ElevationScroll>
+        <Toolbar />
+        <Container>
+          <Box my={2}>
+            <NewGoalForm setGoals={setGoals} globalHashTags={globalHashTags} />
+            <GoalList
+              goals={goals}
+              setGoals={setGoals}
+              globalHashTags={globalHashTags}
+            />
+          </Box>
+        </Container>
+      </ThemeProvider>
     </div>
   );
 }
