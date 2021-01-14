@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import useInputState from "../hooks/useInputState";
 import HashTagSelector from "./HashTagSelector";
 
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -11,8 +13,13 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-
+import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+
 import {
   red,
   pink,
@@ -81,6 +88,16 @@ function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
 }
 
 function Goal({ goal, setGoals, globalHashTags }) {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      padding: theme.spacing(2),
+    },
+    TitleAndOptionsContainer: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+  }));
+  const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -179,8 +196,22 @@ function Goal({ goal, setGoals, globalHashTags }) {
   }
 
   return (
-    <div>
-      <h4>{goal.name}</h4>
+    <Paper className={classes.root} elevation={2}>
+      <div className={classes.TitleAndOptionsContainer}>
+        <Typography variant="h5" gutterBottom>
+          {goal.name}
+        </Typography>
+
+        <IconButton
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          // onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+      </div>
+
       <p>{goal.description}</p>
       <p>{new Date(goal.timeAdded).toString()}</p>
       {goal?.hashTags &&
@@ -228,7 +259,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Paper>
   );
 }
 

@@ -11,7 +11,6 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -119,7 +118,7 @@ function GoalList({ goals, setGoals, globalHashTags }) {
   return (
     <div className={classes.root}>
       <div className={classes.searchFilterDiv}>
-        <Paper component="div" className={classes.searchBarRoot}>
+        <Paper elevation={2} component="div" className={classes.searchBarRoot}>
           <InputBase
             className={classes.input}
             placeholder="Search Goals"
