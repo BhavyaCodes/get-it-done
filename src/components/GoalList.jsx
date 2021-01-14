@@ -11,10 +11,40 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import InputBase from "@material-ui/core/InputBase";
+import Divider from "@material-ui/core/Divider";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+import DirectionsIcon from "@material-ui/icons/Directions";
 
 import SelectTagFilters from "./SelectTagFilters";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0),
+  },
+  input: {
+    width: "90%",
+  },
+  searchBarRoot: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+  },
+  searchIconContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+}));
+
 function GoalList({ goals, setGoals, globalHashTags }) {
+  const classes = useStyles();
   const [searchText, setSearchText, resetSearchText] = useInputState("");
   const [selectedHastagIds, setSelectedHashTagIds] = useState({});
   const [filteredGoals, setFilteredGoals] = useState(goals);
@@ -81,14 +111,33 @@ function GoalList({ goals, setGoals, globalHashTags }) {
   };
 
   return (
-    <div>
-      <label>Search</label>
+    <div className={classes.root}>
+      <Paper component="div" className={classes.searchBarRoot}>
+        <InputBase
+          className={classes.input}
+          placeholder="Search Goals"
+          inputProps={{ "aria-label": "search Goals" }}
+        />
+        <div className={classes.searchIconContainer}>
+          <SearchIcon />
+        </div>
+      </Paper>
+      <TextField
+        id="search-bar"
+        label="Search"
+        className={classes.searchBar}
+        helperText="Search by title or description"
+        fullWidth
+        margin="dense"
+        value={searchText}
+        onChange={setSearchText}
+        variant="outlined"
+      />
       <SelectTagFilters
         selectedHastagIds={selectedHastagIds}
         setSelectedHashTagIds={setSelectedHashTagIds}
         globalHashTags={globalHashTags}
       />
-      <input value={searchText} onChange={setSearchText} />
       <IconButton
         aria-label="more"
         aria-controls="long-menu"
