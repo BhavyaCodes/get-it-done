@@ -31,8 +31,6 @@ function GoalList({ goals, setGoals, globalHashTags }) {
     setAnchorEl(null);
   };
 
-  // const handleSortMenu = () => {};
-
   useEffect(() => {
     setSortedGoals(filteredGoals);
   }, [filteredGoals]);
@@ -72,6 +70,7 @@ function GoalList({ goals, setGoals, globalHashTags }) {
   }, [searchText, goals, selectedHastagIds]);
 
   const renderGoals = () => {
+    console.log(sortedGoals);
     return sortedGoals.map((goal) => (
       <Goal
         goal={goal}
@@ -81,6 +80,8 @@ function GoalList({ goals, setGoals, globalHashTags }) {
       />
     ));
   };
+
+  // console.log(sortedGoals);
 
   return (
     <div>
@@ -109,7 +110,14 @@ function GoalList({ goals, setGoals, globalHashTags }) {
         <MenuList>
           <MenuItem
             onClick={() => {
-              setSortedGoals((prevGoals) => {});
+              setSortedGoals((prevGoals) => {
+                const array = prevGoals.sort(function (a, b) {
+                  return a.duration - b.duration;
+                });
+                console.log(array);
+                return array;
+              });
+              handleClose();
             }}
           >
             <ListItemIcon>
@@ -117,25 +125,22 @@ function GoalList({ goals, setGoals, globalHashTags }) {
             </ListItemIcon>
             <Typography variant="inherit">Time spent</Typography>
           </MenuItem>
-          <MenuItem>
+          <MenuItem
+            onClick={() => {
+              setSortedGoals((prevGoals) => {
+                const array = prevGoals.sort(function (a, b) {
+                  return b.duration - a.duration;
+                });
+                console.log(array);
+                return array;
+              });
+              handleClose();
+            }}
+          >
             <ListItemIcon>
               <ArrowUpwardIcon fontSize="small" />
             </ListItemIcon>
             <Typography variant="inherit">Time spent</Typography>
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <ArrowDownwardIcon fontSize="small" />
-            </ListItemIcon>
-            <Typography variant="inherit" noWrap>
-              Created
-            </Typography>
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <ArrowUpwardIcon fontSize="small" />
-            </ListItemIcon>
-            <Typography variant="inherit">Created</Typography>
           </MenuItem>
         </MenuList>
       </Menu>
