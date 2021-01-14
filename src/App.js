@@ -4,7 +4,7 @@ import useLocalStorageState from "./hooks/useLocalStorageState";
 
 import GoalList from "./components/GoalList";
 import NewGoalForm from "./components/NewGoalForm";
-// import Chart from "./components/Chart";
+import Chart from "./components/Chart";
 
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
@@ -200,7 +200,7 @@ function App(props) {
               setGoals={setGoals}
               globalHashTags={globalHashTags}
             />
-            {/* <Chart goals={goals} /> */}
+            <Chart goals={goals} />
           </Box>
         </Container>
       </ThemeProvider>
