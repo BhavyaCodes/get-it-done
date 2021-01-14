@@ -1,10 +1,13 @@
+import React from "react";
 import { Bar } from "react-chartjs-2";
+import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
-function chart({ goals }) {
+function Chart({ goals }) {
   // const data = goals.map((goal) => {
   //   return { x: goal.name, y: goal.duration };
   // });
-
+  const history = useHistory();
   const labels = goals.map((goal) => goal.name);
   const label = "Seconds";
   const data = {
@@ -31,7 +34,7 @@ function chart({ goals }) {
       yAxes: [
         {
           gridLines: {
-            display: false,
+            display: true,
           },
           ticks: {
             // callback: function (value, index, values) {
@@ -44,13 +47,20 @@ function chart({ goals }) {
     },
   };
 
-  console.log(data);
-
   return (
     <div>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        Go Back
+      </Button>
       <Bar data={data} options={options} />
     </div>
   );
 }
 
-export default chart;
+export default Chart;
