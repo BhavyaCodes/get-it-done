@@ -11,10 +11,45 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from "@material-ui/icons/Search";
 
 import SelectTagFilters from "./SelectTagFilters";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0),
+    paddingTop: theme.spacing(2),
+  },
+  searchFilterDiv: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  input: {
+    width: "90%",
+  },
+  searchBarRoot: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    width: "95%",
+  },
+  searchIconContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  checkBoxContainer: {
+    padding: theme.spacing(2),
+  },
+}));
+
 function GoalList({ goals, setGoals, globalHashTags }) {
+  const classes = useStyles();
   const [searchText, setSearchText, resetSearchText] = useInputState("");
   const [selectedHastagIds, setSelectedHashTagIds] = useState({});
   const [filteredGoals, setFilteredGoals] = useState(goals);
@@ -70,7 +105,6 @@ function GoalList({ goals, setGoals, globalHashTags }) {
   }, [searchText, goals, selectedHastagIds]);
 
   const renderGoals = () => {
-    console.log(sortedGoals);
     return sortedGoals.map((goal) => (
       <Goal
         goal={goal}
@@ -81,25 +115,38 @@ function GoalList({ goals, setGoals, globalHashTags }) {
     ));
   };
 
-  // console.log(sortedGoals);
-
   return (
-    <div>
-      <label>Search</label>
-      <SelectTagFilters
-        selectedHastagIds={selectedHastagIds}
-        setSelectedHashTagIds={setSelectedHashTagIds}
-        globalHashTags={globalHashTags}
-      />
-      <input value={searchText} onChange={setSearchText} />
-      <IconButton
-        aria-label="more"
-        aria-controls="long-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <SortIcon />
-      </IconButton>
+    <div className={classes.root}>
+      <div className={classes.searchFilterDiv}>
+        <Paper elevation={2} component="div" className={classes.searchBarRoot}>
+          <InputBase
+            className={classes.input}
+            placeholder="Search Goals"
+            inputProps={{ "aria-label": "search Goals" }}
+            value={searchText}
+            onChange={setSearchText}
+          />
+          <div className={classes.searchIconContainer}>
+            <SearchIcon />
+          </div>
+        </Paper>
+        <IconButton
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <SortIcon />
+        </IconButton>
+      </div>
+      <div className={classes.checkBoxContainer}>
+        <SelectTagFilters
+          selectedHastagIds={selectedHastagIds}
+          setSelectedHashTagIds={setSelectedHashTagIds}
+          globalHashTags={globalHashTags}
+        />
+      </div>
+
       <Menu
         id="long-menu"
         anchorEl={anchorEl}

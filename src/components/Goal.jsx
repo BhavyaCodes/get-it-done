@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
+import humanizeDuration from "humanize-duration";
 
 import useInputState from "../hooks/useInputState";
 import HashTagSelector from "./HashTagSelector";
 
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import PauseIcon from "@material-ui/icons/Pause";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -11,8 +16,16 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-
+import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+
 import {
   red,
   pink,
@@ -81,6 +94,23 @@ function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
 }
 
 function Goal({ goal, setGoals, globalHashTags }) {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      padding: theme.spacing(2),
+    },
+    TitleAndOptionsContainer: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
+    hashTag: {
+      margin: theme.spacing(1),
+    },
+    startButton: {
+      marginLeft: theme.spacing(1),
+      marginTop: theme.spacing(2),
+    },
+  }));
+  const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -93,6 +123,18 @@ function Goal({ goal, setGoals, globalHashTags }) {
             1000
       : goal.duration
   );
+
+  //3 dot menu
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     let myInterval = setInterval(() => {
@@ -152,7 +194,11 @@ function Goal({ goal, setGoals, globalHashTags }) {
       }))(Button);
 
       chips.push(
-        <ColorButton size="small" key={hashTags[key]._id}>
+        <ColorButton
+          className={classes.hashTag}
+          size="small"
+          key={hashTags[key]._id}
+        >
           {hashTags[key].tag}
         </ColorButton>
       );
@@ -179,28 +225,100 @@ function Goal({ goal, setGoals, globalHashTags }) {
   }
 
   return (
-    <div>
-      <h4>{goal.name}</h4>
-      <p>{goal.description}</p>
-      <p>{new Date(goal.timeAdded).toString()}</p>
+    <Paper className={classes.root} elevation={2}>
+      <div className={classes.TitleAndOptionsContainer}>
+        <Typography variant="h3" gutterBottom>
+          {goal.name}
+        </Typography>
+        <IconButton
+          aria-label="more"
+          aria-controls="long-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleCloseMenu}
+        >
+          <MenuItem
+            onClick={() => {
+              handleCloseMenu();
+              setEditing(true);
+            }}
+          >
+            <ListItemIcon>
+              <EditIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">Edit</Typography>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleClickOpen();
+              handleCloseMenu();
+            }}
+          >
+            <ListItemIcon>
+              <DeleteIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">Delete</Typography>
+          </MenuItem>
+        </Menu>
+      </div>
+      <Typography variant="h6" gutterBottom>
+        {goal.description}
+      </Typography>
+      {/* <p>{new Date(goal.timeAdded).toString()}</p> */}
+      <Typography variant="h5" gutterBottom>
+        {" "}
+        You have spent{" "}
+        {humanizeDuration(displaySeconds * 1000, { round: true })} on this task
+      </Typography>
       {goal?.hashTags &&
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
-      <p> displaySeconds variable - {displaySeconds}</p>
+
       {/* <p>Duration variable - {goal.duration}</p> */}
-      <Button variant="contained" color="primary" onClick={handleStartPause}>
+      {/* <Button variant="contained" color="primary" onClick={handleStartPause}>
         {goal.isActive ? "pause" : "start"}
-      </Button>
-      <button type="button" onClick={handleClickOpen}>
+      </Button> */}
+      <div className={classes.startButton}>
+        {goal.isActive ? (
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            startIcon={<PauseIcon />}
+            onClick={handleStartPause}
+          >
+            pause
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={<PlayArrowIcon />}
+            onClick={handleStartPause}
+          >
+            start
+          </Button>
+        )}
+      </div>
+      {/* <button type="button" onClick={handleClickOpen}>
         Delete Goal
-      </button>
-      <button
+      </button> */}
+      {/* <button
         onClick={() => {
           setEditing(true);
         }}
       >
         Edit Goal
-      </button>
+      </button> */}
       <Dialog
         fullScreen={fullScreen}
         open={modalOpen}
@@ -228,7 +346,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Paper>
   );
 }
 
