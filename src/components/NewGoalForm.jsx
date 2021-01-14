@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import useInputState from "../hooks/useInputState";
 import HashTagSelector from "./HashTagSelector";
 
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Fab from "@material-ui/core/Fab";
@@ -67,6 +68,15 @@ function NewGoalForm({ setGoals, globalHashTags }) {
     <Paper elevation={2}>
       <form onSubmit={handleFormSubmit}>
         <div className={classes.root}>
+          <Typography
+            variant="h1"
+            component="h1"
+            gutterBottom
+            align="center"
+            style={{ fontSize: "4rem", marginTop: "1.5rem" }}
+          >
+            Add a new task here!
+          </Typography>
           <TextField
             id="standard-full-width"
             label="Goal title"

@@ -25,6 +25,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import TextField from "@material-ui/core/TextField";
 
 import {
   red,
@@ -51,6 +52,39 @@ const colors = {
 };
 
 function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      marginBottom: theme.spacing(3),
+    },
+    root: {
+      display: "flex",
+      flexWrap: "wrap",
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: "25ch",
+    },
+    fab: {
+      marginRight: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
+    fabContainer: {
+      display: "flex",
+      justifyContent: "flex-end",
+    },
+    buttons: {
+      display: "flex",
+      justifyContent: "flex-end",
+      paddingBottom: theme.spacing(2),
+    },
+    btn: {
+      marginRight: theme.spacing(2),
+    },
+  }));
+  const classes = useStyles();
   const [name, setName, resetName] = useInputState(goal.name);
   const [desc, setDesc, resetDesc] = useInputState(goal.description);
   const [hashTags, setHashTags] = useState(goal.hashTags);
@@ -73,23 +107,73 @@ function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
   };
 
   return (
-    <form onSubmit={handleUpdateGoal}>
-      <label>Name</label>
-      <input value={name} required onChange={setName} />
-      <br />
-      <label>Description</label>
-      <input value={desc} onChange={setDesc} />
-      <br />
-      <HashTagSelector
-        hashTags={hashTags}
-        setHashTags={setHashTags}
-        globalHashTags={globalHashTags}
-      />
-      <button type="submit">save</button>
-      <button type="button" onClick={handleCancel}>
-        Cancel
-      </button>
-    </form>
+    <Paper elevation={2} className={classes.paper}>
+      <form onSubmit={handleUpdateGoal}>
+        <div className={classes.root}>
+          <Typography
+            variant="h1"
+            component="h1"
+            gutterBottom
+            align="center"
+            style={{ fontSize: "3rem", marginTop: "1.5rem" }}
+          >
+            You're in the edit mode ;)
+          </Typography>
+          {/* <label>Name</label>
+      <input value={name} required onChange={setName} /> */}
+          <TextField
+            id="asdf9wje9r"
+            label="Goal title"
+            style={{ margin: 8 }}
+            helperText="Placeholder Helper text"
+            fullWidth
+            margin="dense"
+            value={name}
+            required
+            onChange={setName}
+          />
+          {/* <br />
+        <label>Description</label>
+        <input value={desc} onChange={setDesc} /> */}
+          {/* <br /> */}
+          <TextField
+            id="standard-fuadasdll-width-2"
+            label="Goal description"
+            style={{ margin: 8 }}
+            helperText="Placeholder Helper text"
+            fullWidth
+            margin="dense"
+            value={desc}
+            onChange={setDesc}
+          />
+          <HashTagSelector
+            hashTags={hashTags}
+            setHashTags={setHashTags}
+            globalHashTags={globalHashTags}
+          />
+        </div>
+        <div className={classes.buttons}>
+          <Button
+            className={classes.btn}
+            color="secondary"
+            type="button"
+            onClick={handleCancel}
+            variant="contained"
+            size="large"
+          >
+            Cancel
+          </Button>
+          <Button
+            className={classes.btn}
+            variant="contained"
+            type="submit"
+            size="large"
+          >
+            save
+          </Button>
+        </div>
+      </form>
+    </Paper>
   );
 }
 
@@ -97,6 +181,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       padding: theme.spacing(2),
+      marginBottom: theme.spacing(3),
     },
     TitleAndOptionsContainer: {
       display: "flex",
@@ -108,6 +193,10 @@ function Goal({ goal, setGoals, globalHashTags }) {
     startButton: {
       marginLeft: theme.spacing(1),
       marginTop: theme.spacing(2),
+    },
+    desc: {
+      fontSize: "1.2rem",
+      fontWeight: "100",
     },
   }));
   const classes = useStyles();
@@ -227,7 +316,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
   return (
     <Paper className={classes.root} elevation={2}>
       <div className={classes.TitleAndOptionsContainer}>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           {goal.name}
         </Typography>
         <IconButton
@@ -269,7 +358,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
           </MenuItem>
         </Menu>
       </div>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="body1" className={classes.desc} gutterBottom>
         {goal.description}
       </Typography>
       {/* <p>{new Date(goal.timeAdded).toString()}</p> */}
