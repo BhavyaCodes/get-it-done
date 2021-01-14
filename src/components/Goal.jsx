@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import humanizeDuration from "humanize-duration";
 
 import useInputState from "../hooks/useInputState";
 import HashTagSelector from "./HashTagSelector";
@@ -266,7 +267,11 @@ function Goal({ goal, setGoals, globalHashTags }) {
         {goal.description}
       </Typography>
       {/* <p>{new Date(goal.timeAdded).toString()}</p> */}
-      <p> You have spent - {displaySeconds} on this task</p>
+      <p>
+        {" "}
+        You have spent{" "}
+        {humanizeDuration(displaySeconds * 1000, { round: true })} on this task
+      </p>
       {goal?.hashTags &&
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
