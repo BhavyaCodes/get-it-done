@@ -6,6 +6,8 @@ import GoalList from "./components/GoalList";
 import NewGoalForm from "./components/NewGoalForm";
 import Chart from "./components/Chart";
 
+import { Switch, Route } from "react-router-dom";
+
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import IconButton from "@material-ui/core/IconButton";
@@ -194,13 +196,30 @@ function App(props) {
         <Toolbar />
         <Container>
           <Box my={2}>
-            <NewGoalForm setGoals={setGoals} globalHashTags={globalHashTags} />
-            <GoalList
-              goals={goals}
-              setGoals={setGoals}
-              globalHashTags={globalHashTags}
-            />
-            <Chart goals={goals} />
+            <Switch>
+              <Route
+                path="/"
+                exact
+                render={(routeProps) => (
+                  <>
+                    <NewGoalForm
+                      setGoals={setGoals}
+                      globalHashTags={globalHashTags}
+                    />
+                    <GoalList
+                      goals={goals}
+                      setGoals={setGoals}
+                      globalHashTags={globalHashTags}
+                    />
+                  </>
+                )}
+              />
+              <Route
+                path="/statistics"
+                exact
+                render={(routeProps) => <Chart goals={goals} />}
+              />
+            </Switch>
           </Box>
         </Container>
       </ThemeProvider>

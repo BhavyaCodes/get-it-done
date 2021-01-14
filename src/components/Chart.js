@@ -1,10 +1,13 @@
+import React from "react";
 import { Bar } from "react-chartjs-2";
+import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 function chart({ goals }) {
   // const data = goals.map((goal) => {
   //   return { x: goal.name, y: goal.duration };
   // });
-
+  const history = useHistory();
   const labels = goals.map((goal) => goal.name);
   const label = "Seconds";
   const data = {
@@ -43,10 +46,17 @@ function chart({ goals }) {
     },
   };
 
-  console.log(data);
-
   return (
     <div>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => {
+          // his;
+        }}
+      >
+        Go Back
+      </Button>
       <Bar data={data} options={options} />
     </div>
   );
