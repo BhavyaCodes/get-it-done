@@ -19,6 +19,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 import {
   red,
@@ -96,6 +99,9 @@ function Goal({ goal, setGoals, globalHashTags }) {
       display: "flex",
       justifyContent: "space-between",
     },
+    hashTag: {
+      margin: theme.spacing(1),
+    },
   }));
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -110,6 +116,18 @@ function Goal({ goal, setGoals, globalHashTags }) {
             1000
       : goal.duration
   );
+
+  //3 dot menu
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     let myInterval = setInterval(() => {
@@ -169,7 +187,11 @@ function Goal({ goal, setGoals, globalHashTags }) {
       }))(Button);
 
       chips.push(
-        <ColorButton size="small" key={hashTags[key]._id}>
+        <ColorButton
+          className={classes.hashTag}
+          size="small"
+          key={hashTags[key]._id}
+        >
           {hashTags[key].tag}
         </ColorButton>
       );
@@ -198,40 +220,71 @@ function Goal({ goal, setGoals, globalHashTags }) {
   return (
     <Paper className={classes.root} elevation={2}>
       <div className={classes.TitleAndOptionsContainer}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           {goal.name}
         </Typography>
-
         <IconButton
           aria-label="more"
           aria-controls="long-menu"
           aria-haspopup="true"
-          // onClick={handleClick}
+          onClick={handleClick}
         >
           <MoreVertIcon />
         </IconButton>
+        <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleCloseMenu}
+        >
+          <MenuItem
+            onClick={() => {
+              handleCloseMenu();
+              setEditing(true);
+            }}
+          >
+            <ListItemIcon>
+              <EditIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">Edit</Typography>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleClickOpen();
+              handleCloseMenu();
+            }}
+          >
+            <ListItemIcon>
+              <DeleteIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">Delete</Typography>
+          </MenuItem>
+        </Menu>
       </div>
-
-      <p>{goal.description}</p>
-      <p>{new Date(goal.timeAdded).toString()}</p>
+      <Typography variant="h6" gutterBottom>
+        {goal.description}
+      </Typography>
+      {/* <p>{new Date(goal.timeAdded).toString()}</p> */}
+      <p> You have spent - {displaySeconds} on this task</p>
       {goal?.hashTags &&
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
-      <p> displaySeconds variable - {displaySeconds}</p>
+
       {/* <p>Duration variable - {goal.duration}</p> */}
       <Button variant="contained" color="primary" onClick={handleStartPause}>
         {goal.isActive ? "pause" : "start"}
       </Button>
-      <button type="button" onClick={handleClickOpen}>
+      {/* <button type="button" onClick={handleClickOpen}>
         Delete Goal
-      </button>
-      <button
+      </button> */}
+      {/* <button
         onClick={() => {
           setEditing(true);
         }}
       >
         Edit Goal
-      </button>
+      </button> */}
       <Dialog
         fullScreen={fullScreen}
         open={modalOpen}
