@@ -28,8 +28,6 @@ function GoalList({ goals, setGoals, globalHashTags }) {
           return false;
         });
 
-    console.log(textFilter);
-
     const tagFilter =
       Object.keys(selectedHastagIds).length === 0
         ? textFilter
@@ -41,7 +39,6 @@ function GoalList({ goals, setGoals, globalHashTags }) {
             }
             return false;
           });
-    console.log(tagFilter);
 
     setFilteredGoals(tagFilter);
   }, [searchText, goals, selectedHastagIds]);
