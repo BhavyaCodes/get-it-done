@@ -4,6 +4,7 @@ import useLocalStorageState from "./hooks/useLocalStorageState";
 
 import GoalList from "./components/GoalList";
 import NewGoalForm from "./components/NewGoalForm";
+// import Chart from "./components/Chart";
 
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
@@ -20,8 +21,6 @@ import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
-
-// import "./App.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,8 +86,8 @@ function App(props) {
   const [darkState, setDarkState] = useLocalStorageState("darkMode", false);
   const paletteType = darkState ? "dark" : "light";
 
-  const arcBlue = "#00acc1";
-  const arcOrange = "#ffab40";
+  const arcBlue = "#ff4081";
+  const arcOrange = "#3d5afe";
 
   const theme = createMuiTheme({
     palette: {
@@ -130,9 +129,9 @@ function App(props) {
   const [goals, setGoals] = useLocalStorageState("goals", [
     {
       _id: uuidv4(),
-      name: "goal 1",
+      name: "Eat breakfast",
       description:
-        "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print",
+        "buy oatmeal, tea and dried rose petals from the local grocery store",
       timeAdded: new Date(),
       duration: 1000,
       isActive: false,
@@ -143,9 +142,8 @@ function App(props) {
     },
     {
       _id: uuidv4(),
-      name: "goal 2",
-      description:
-        "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print",
+      name: "Win hackathon",
+      description: "Make best task planner app ever",
       timeAdded: new Date(),
       duration: 2000,
       isActive: false,
@@ -202,6 +200,7 @@ function App(props) {
               setGoals={setGoals}
               globalHashTags={globalHashTags}
             />
+            {/* <Chart goals={goals} /> */}
           </Box>
         </Container>
       </ThemeProvider>
