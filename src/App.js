@@ -5,6 +5,11 @@ import useLocalStorageState from "./hooks/useLocalStorageState";
 import GoalList from "./components/GoalList";
 import NewGoalForm from "./components/NewGoalForm";
 
+import Brightness4Icon from "@material-ui/icons/Brightness4";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
+import IconButton from "@material-ui/core/IconButton";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import Link from "@material-ui/core/Link";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -150,10 +155,37 @@ function App(props) {
     <div>
       <CssBaseline />
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <ElevationScroll {...props}>
           <AppBar>
             <Toolbar>
               <Typography variant="h6">Get It Done</Typography>
+              <div className={classes.navItemsRight}>
+                <IconButton
+                  aria-label="toggle dark mode"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="false"
+                  onClick={handleThemeChange}
+                  color="inherit"
+                >
+                  {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+                <Link
+                  href="https://github.com/Juggernaut9/covid-tracker-material-ui-react"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color="inherit"
+                >
+                  <IconButton
+                    aria-label="Github repository link"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    color="inherit"
+                  >
+                    <GitHubIcon />
+                  </IconButton>
+                </Link>
+              </div>
             </Toolbar>
           </AppBar>
         </ElevationScroll>
