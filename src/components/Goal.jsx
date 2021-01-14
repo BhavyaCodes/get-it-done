@@ -273,11 +273,11 @@ function Goal({ goal, setGoals, globalHashTags }) {
         {goal.description}
       </Typography>
       {/* <p>{new Date(goal.timeAdded).toString()}</p> */}
-      <p>
+      <Typography variant="h5" gutterBottom>
         {" "}
         You have spent{" "}
         {humanizeDuration(displaySeconds * 1000, { round: true })} on this task
-      </p>
+      </Typography>
       {goal?.hashTags &&
         goal?.hashTags?.length !== 0 &&
         renderHashTags(goal.hashTags)}
