@@ -111,11 +111,22 @@ function GoalList({ goals, setGoals, globalHashTags }) {
           <MenuItem
             onClick={() => {
               setSortedGoals((prevGoals) => {
-                const array = prevGoals.sort(function (a, b) {
-                  return a.duration - b.duration;
+                return prevGoals.sort(function (a, b) {
+                  const duration1 = a.isActive
+                    ? a.duration +
+                      (new Date().getTime() -
+                        new Date(a.latestStartTimeStamp).getTime()) /
+                        1000
+                    : a.duration;
+
+                  const duration2 = b.isActive
+                    ? b.duration +
+                      (new Date().getTime() -
+                        new Date(b.latestStartTimeStamp).getTime()) /
+                        1000
+                    : b.duration;
+                  return duration1 - duration2;
                 });
-                console.log(array);
-                return array;
               });
               handleClose();
             }}
@@ -128,11 +139,22 @@ function GoalList({ goals, setGoals, globalHashTags }) {
           <MenuItem
             onClick={() => {
               setSortedGoals((prevGoals) => {
-                const array = prevGoals.sort(function (a, b) {
-                  return b.duration - a.duration;
+                return prevGoals.sort(function (a, b) {
+                  const duration1 = a.isActive
+                    ? a.duration +
+                      (new Date().getTime() -
+                        new Date(a.latestStartTimeStamp).getTime()) /
+                        1000
+                    : a.duration;
+
+                  const duration2 = b.isActive
+                    ? b.duration +
+                      (new Date().getTime() -
+                        new Date(b.latestStartTimeStamp).getTime()) /
+                        1000
+                    : b.duration;
+                  return duration2 - duration1;
                 });
-                console.log(array);
-                return array;
               });
               handleClose();
             }}
