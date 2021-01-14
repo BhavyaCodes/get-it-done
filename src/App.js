@@ -51,6 +51,10 @@ const useStyles = makeStyles((theme) => ({
   checkBoxContainer: {
     padding: theme.spacing(2),
   },
+  navItemsRight: {
+    margin: "auto",
+    marginRight: 0,
+  },
 }));
 
 function ElevationScroll(props) {
@@ -171,7 +175,7 @@ function App(props) {
                   {darkState ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>
                 <Link
-                  href="https://github.com/Juggernaut9/covid-tracker-material-ui-react"
+                  href="https://github.com/Juggernaut9/get-it-done"
                   target="_blank"
                   rel="noopener noreferrer"
                   color="inherit"
