@@ -6,8 +6,9 @@ import GoalList from "./components/GoalList";
 import NewGoalForm from "./components/NewGoalForm";
 import Chart from "./components/Chart";
 
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 
+import Button from "@material-ui/core/Button";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import IconButton from "@material-ui/core/IconButton";
@@ -85,6 +86,7 @@ ElevationScroll.propTypes = {
 
 function App(props) {
   const classes = useStyles();
+  const history = useHistory();
   const [darkState, setDarkState] = useLocalStorageState("darkMode", false);
   const paletteType = darkState ? "dark" : "light";
 
@@ -165,6 +167,15 @@ function App(props) {
             <Toolbar>
               <Typography variant="h6">Get It Done</Typography>
               <div className={classes.navItemsRight}>
+                <Button
+                  type="contained"
+                  color="secondary"
+                  onClick={() => {
+                    history.push("/statistics");
+                  }}
+                >
+                  Statistics
+                </Button>
                 <IconButton
                   aria-label="toggle dark mode"
                   aria-controls="menu-appbar"

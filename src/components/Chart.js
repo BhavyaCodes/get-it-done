@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
-function chart({ goals }) {
+function Chart({ goals }) {
   // const data = goals.map((goal) => {
   //   return { x: goal.name, y: goal.duration };
   // });
@@ -15,6 +15,7 @@ function chart({ goals }) {
     datasets: [
       {
         label,
+        backgroundColor: goals.map((goal) => "rgba(237, 132, 214, 0.5)"),
         data: goals.map((goal) =>
           goal.isActive
             ? goal.duration +
@@ -33,7 +34,7 @@ function chart({ goals }) {
       yAxes: [
         {
           gridLines: {
-            display: false,
+            display: true,
           },
           ticks: {
             // callback: function (value, index, values) {
@@ -52,7 +53,7 @@ function chart({ goals }) {
         variant="contained"
         color="secondary"
         onClick={() => {
-          // his;
+          history.push("/");
         }}
       >
         Go Back
@@ -62,4 +63,4 @@ function chart({ goals }) {
   );
 }
 
-export default chart;
+export default Chart;
