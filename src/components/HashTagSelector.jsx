@@ -2,6 +2,8 @@ import React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   red,
   pink,
@@ -14,7 +16,15 @@ import {
   grey,
 } from "@material-ui/core/colors";
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
+
 function HashTagSelector({ hashTags, setHashTags, globalHashTags }) {
+  const classes = useStyles();
+
   const handleAddHashTag = (hashTag) => {
     setHashTags((prevHashTags) => {
       return { ...prevHashTags, [hashTag._id]: hashTag };
@@ -57,6 +67,7 @@ function HashTagSelector({ hashTags, setHashTags, globalHashTags }) {
 
           return (
             <ColorButton
+              className={classes.button}
               size="small"
               key={globalHashTag._id}
               onClick={() => {
@@ -85,6 +96,7 @@ function HashTagSelector({ hashTags, setHashTags, globalHashTags }) {
 
           return (
             <ColorButton
+              className={classes.button}
               size="small"
               key={globalHashTag._id}
               onClick={() => {
