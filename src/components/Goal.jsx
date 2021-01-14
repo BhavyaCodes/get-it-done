@@ -44,7 +44,6 @@ function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
 
   const handleUpdateGoal = (e) => {
     e.preventDefault();
-    console.log("handleUpdateGoal");
     setGoals((prevGoals) => {
       return prevGoals.map((prevGoal) => {
         if (goal._id !== prevGoal._id) {
@@ -94,9 +93,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
             1000
       : goal.duration
   );
-  useEffect(() => {
-    setDisplaySeconds(goal.duration);
-  }, [goal.duration]);
+
   useEffect(() => {
     let myInterval = setInterval(() => {
       if (goal.isActive) {
