@@ -12,6 +12,7 @@ function chart({ goals }) {
     datasets: [
       {
         label,
+        backgroundColor: goals.map((goal) => "rgba(237, 132, 214, 0.5)"),
         data: goals.map((goal) =>
           goal.isActive
             ? goal.duration +
