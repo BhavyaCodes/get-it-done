@@ -34,6 +34,10 @@ function GoalList({ goals, setGoals, globalHashTags }) {
   // const handleSortMenu = () => {};
 
   useEffect(() => {
+    setSortedGoals(filteredGoals);
+  }, [filteredGoals]);
+
+  useEffect(() => {
     const textFilter = !searchText
       ? goals
       : goals.filter((goal) => {
