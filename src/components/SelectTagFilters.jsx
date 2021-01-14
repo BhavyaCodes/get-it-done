@@ -10,6 +10,7 @@ function SelectTagFilters({
   const renderCheckboxes = () => {
     return globalHashTags.map((hashTag) => (
       <CheckBoxComp
+        key={hashTag._id}
         hashTag={hashTag}
         selectedHastagIds={selectedHastagIds}
         setSelectedHashTagIds={setSelectedHashTagIds}

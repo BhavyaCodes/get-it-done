@@ -6,33 +6,45 @@ import SelectTagFilters from "./SelectTagFilters";
 
 function GoalList({ goals, setGoals, globalHashTags }) {
   const [searchText, setSearchText, resetSearchText] = useInputState("");
-  const [selectedHastagIds, setSelectedHashTagIds] = useState([]);
+  const [selectedHastagIds, setSelectedHashTagIds] = useState({});
   const [filteredGoals, setFilteredGoals] = useState(goals);
 
   useEffect(() => {
-    if (!searchText) {
-      return setFilteredGoals(goals);
-    }
-    const textFilter = goals.filter((goal) => {
-      if (
-        goal.name
-          .trim()
-          .toLowerCase()
-          .includes(searchText.trim().toLowerCase()) ||
-        goal.description
-          .trim()
-          .toLowerCase()
-          .includes(searchText.trim().toLowerCase())
-      ) {
-        return true;
-      }
-      return false;
-    });
+    const textFilter = !searchText
+      ? goals
+      : goals.filter((goal) => {
+          if (
+            goal.name
+              .trim()
+              .toLowerCase()
+              .includes(searchText.trim().toLowerCase()) ||
+            goal.description
+              .trim()
+              .toLowerCase()
+              .includes(searchText.trim().toLowerCase())
+          ) {
+            return true;
+          }
+          return false;
+        });
 
-    // const tagFilter = textFilter.filter(goa)
+    console.log(textFilter);
 
-    setFilteredGoals(textFilter);
-  }, [searchText, goals]);
+    const tagFilter =
+      Object.keys(selectedHastagIds).length === 0
+        ? textFilter
+        : textFilter.filter((goal) => {
+            for (let key in goal.hashTags) {
+              if (selectedHastagIds[key]) {
+                return true;
+              }
+            }
+            return false;
+          });
+    console.log(tagFilter);
+
+    setFilteredGoals(tagFilter);
+  }, [searchText, goals, selectedHastagIds]);
 
   const renderGoals = () => {
     return filteredGoals.map((goal) => (
@@ -60,3 +72,5 @@ function GoalList({ goals, setGoals, globalHashTags }) {
 }
 
 export default GoalList;
+
+//TODO add reset filters button?

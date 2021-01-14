@@ -3,21 +3,25 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 function CheckBoxComp({ hashTag, selectedHastagIds, setSelectedHashTagIds }) {
   const handleChange = () => {
-    if (selectedHastagIds.find((_id) => _id === hashTag._id)) {
-      return setSelectedHashTagIds((prevHashTagsIds) =>
-        prevHashTagsIds.filter((prevHashTagId) => hashTag._id !== prevHashTagId)
-      );
+    if (selectedHastagIds[hashTag._id]) {
+      // return setSelectedHashTagIds((prevHashTagsIds) =>
+      //   prevHashTagsIds.filter((prevHashTagId) => hashTag._id !== prevHashTagId)
+      // );
+      return setSelectedHashTagIds((prevHashTagIds) => {
+        delete prevHashTagIds[hashTag._id];
+        return { ...prevHashTagIds };
+      });
     }
-    setSelectedHashTagIds((prevHashTags) => [...prevHashTags, hashTag._id]); //prevHashTags.push(hashTag._id));
+    setSelectedHashTagIds((prevHashTags) => {
+      return { ...prevHashTags, [hashTag._id]: true };
+    });
   };
 
   return (
     <FormControlLabel
       control={
         <Checkbox
-          checked={
-            selectedHastagIds.find((_id) => _id === hashTag._id) ? true : false
-          }
+          checked={selectedHastagIds[hashTag._id] ? true : false}
           onChange={handleChange}
         />
       }
