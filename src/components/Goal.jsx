@@ -4,6 +4,8 @@ import humanizeDuration from "humanize-duration";
 import useInputState from "../hooks/useInputState";
 import HashTagSelector from "./HashTagSelector";
 
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import PauseIcon from "@material-ui/icons/Pause";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -102,6 +104,10 @@ function Goal({ goal, setGoals, globalHashTags }) {
     },
     hashTag: {
       margin: theme.spacing(1),
+    },
+    startButton: {
+      marginLeft: theme.spacing(1),
+      marginTop: theme.spacing(2),
     },
   }));
   const classes = useStyles();
@@ -277,9 +283,32 @@ function Goal({ goal, setGoals, globalHashTags }) {
         renderHashTags(goal.hashTags)}
 
       {/* <p>Duration variable - {goal.duration}</p> */}
-      <Button variant="contained" color="primary" onClick={handleStartPause}>
+      {/* <Button variant="contained" color="primary" onClick={handleStartPause}>
         {goal.isActive ? "pause" : "start"}
-      </Button>
+      </Button> */}
+      <div className={classes.startButton}>
+        {goal.isActive ? (
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            startIcon={<PauseIcon />}
+            onClick={handleStartPause}
+          >
+            pause
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={<PlayArrowIcon />}
+            onClick={handleStartPause}
+          >
+            start
+          </Button>
+        )}
+      </div>
       {/* <button type="button" onClick={handleClickOpen}>
         Delete Goal
       </button> */}
