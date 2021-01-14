@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: theme.spacing(0),
     paddingRight: theme.spacing(0),
+    paddingTop: theme.spacing(2),
   },
   searchFilterDiv: {
     display: "flex",
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   searchIconContainer: {
     display: "flex",
     alignItems: "center",
+  },
+  checkBoxContainer: {
+    padding: theme.spacing(2),
   },
 }));
 
@@ -136,11 +140,13 @@ function GoalList({ goals, setGoals, globalHashTags }) {
           <SortIcon />
         </IconButton>
       </div>
-      <SelectTagFilters
-        selectedHastagIds={selectedHastagIds}
-        setSelectedHashTagIds={setSelectedHashTagIds}
-        globalHashTags={globalHashTags}
-      />
+      <div className={classes.checkBoxContainer}>
+        <SelectTagFilters
+          selectedHastagIds={selectedHastagIds}
+          setSelectedHashTagIds={setSelectedHashTagIds}
+          globalHashTags={globalHashTags}
+        />
+      </div>
 
       <Menu
         id="long-menu"
