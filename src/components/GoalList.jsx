@@ -70,7 +70,6 @@ function GoalList({ goals, setGoals, globalHashTags }) {
   }, [searchText, goals, selectedHastagIds]);
 
   const renderGoals = () => {
-    console.log(sortedGoals);
     return sortedGoals.map((goal) => (
       <Goal
         goal={goal}
@@ -80,8 +79,6 @@ function GoalList({ goals, setGoals, globalHashTags }) {
       />
     ));
   };
-
-  // console.log(sortedGoals);
 
   return (
     <div>

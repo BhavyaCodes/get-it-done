@@ -2,8 +2,11 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useInputState from "../hooks/useInputState";
 import HashTagSelector from "./HashTagSelector";
+
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 
 import Paper from "@material-ui/core/Paper";
 
@@ -18,6 +21,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: "25ch",
+  },
+  fab: {
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  fabContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
   },
 }));
 
@@ -54,35 +65,46 @@ function NewGoalForm({ setGoals, globalHashTags }) {
 
   return (
     <Paper elevation={2}>
-      <form onSubmit={handleFormSubmit} className={classes.root}>
-        <TextField
-          id="standard-full-width"
-          label="Goal title"
-          style={{ margin: 8 }}
-          helperText="Placeholder Helper text"
-          fullWidth
-          margin="dense"
-          value={name}
-          required
-          onChange={setName}
-        />
-        <TextField
-          id="standard-full-width"
-          label="Goal description"
-          style={{ margin: 8 }}
-          helperText="Placeholder Helper text"
-          fullWidth
-          margin="dense"
-          value={desc}
-          onChange={setDesc}
-        />
+      <form onSubmit={handleFormSubmit}>
+        <div className={classes.root}>
+          <TextField
+            id="standard-full-width"
+            label="Goal title"
+            style={{ margin: 8 }}
+            helperText="Placeholder Helper text"
+            fullWidth
+            margin="dense"
+            value={name}
+            required
+            onChange={setName}
+          />
+          <TextField
+            id="standard-full-width-2"
+            label="Goal description"
+            style={{ margin: 8 }}
+            helperText="Placeholder Helper text"
+            fullWidth
+            margin="dense"
+            value={desc}
+            onChange={setDesc}
+          />
 
-        <HashTagSelector
-          hashTags={hashTags}
-          setHashTags={setHashTags}
-          globalHashTags={globalHashTags}
-        />
-        <button type="submit">Create new goal</button>
+          <HashTagSelector
+            hashTags={hashTags}
+            setHashTags={setHashTags}
+            globalHashTags={globalHashTags}
+          />
+        </div>
+        <div className={classes.fabContainer}>
+          <Fab
+            className={classes.fab}
+            color="primary"
+            aria-label="add"
+            type="submit"
+          >
+            <AddIcon />
+          </Fab>
+        </div>
       </form>
     </Paper>
   );
