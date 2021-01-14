@@ -97,6 +97,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       padding: theme.spacing(2),
+      marginBottom: theme.spacing(3),
     },
     TitleAndOptionsContainer: {
       display: "flex",
@@ -108,6 +109,10 @@ function Goal({ goal, setGoals, globalHashTags }) {
     startButton: {
       marginLeft: theme.spacing(1),
       marginTop: theme.spacing(2),
+    },
+    desc: {
+      fontSize: "1.2rem",
+      fontWeight: "100",
     },
   }));
   const classes = useStyles();
@@ -227,7 +232,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
   return (
     <Paper className={classes.root} elevation={2}>
       <div className={classes.TitleAndOptionsContainer}>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           {goal.name}
         </Typography>
         <IconButton
@@ -269,7 +274,7 @@ function Goal({ goal, setGoals, globalHashTags }) {
           </MenuItem>
         </Menu>
       </div>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="body1" className={classes.desc} gutterBottom>
         {goal.description}
       </Typography>
       {/* <p>{new Date(goal.timeAdded).toString()}</p> */}
