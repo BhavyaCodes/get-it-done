@@ -13,8 +13,40 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 // import "./App.css";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0),
+    paddingTop: theme.spacing(2),
+  },
+  searchFilterDiv: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  input: {
+    width: "90%",
+  },
+  searchBarRoot: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    width: "95%",
+  },
+  searchIconContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  checkBoxContainer: {
+    padding: theme.spacing(2),
+  },
+}));
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -42,6 +74,43 @@ ElevationScroll.propTypes = {
 };
 
 function App(props) {
+  const classes = useStyles();
+  const [darkState, setDarkState] = useLocalStorageState("darkMode", false);
+  const paletteType = darkState ? "dark" : "light";
+
+  const arcBlue = "#00acc1";
+  const arcOrange = "#ffab40";
+
+  const theme = createMuiTheme({
+    palette: {
+      common: {
+        blue: `${arcBlue}`,
+        orange: `${arcOrange}`,
+      },
+      primary: {
+        main: `${arcBlue}`,
+      },
+      secondary: {
+        main: `${arcOrange}`,
+      },
+      type: paletteType,
+    },
+    overrides: {
+      MuiTableCell: {
+        head: {
+          fontSize: "1rem",
+          fontWeight: 700,
+          color: arcOrange,
+          borderColor: arcOrange,
+        },
+      },
+    },
+  });
+
+  const handleThemeChange = () => {
+    setDarkState(!darkState);
+  };
+
   const [globalHashTags, setGlobalHashTags] = useLocalStorageState("hashtags", [
     { _id: "0", tag: "health", color: "green" },
     { _id: "1", tag: "love", color: "red" },
@@ -80,24 +149,26 @@ function App(props) {
   return (
     <div>
       <CssBaseline />
-      <ElevationScroll {...props}>
-        <AppBar>
-          <Toolbar>
-            <Typography variant="h6">Scroll to Elevate App Bar</Typography>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
-      <Toolbar />
-      <Container>
-        <Box my={2}>
-          <NewGoalForm setGoals={setGoals} globalHashTags={globalHashTags} />
-          <GoalList
-            goals={goals}
-            setGoals={setGoals}
-            globalHashTags={globalHashTags}
-          />
-        </Box>
-      </Container>
+      <ThemeProvider theme={theme}>
+        <ElevationScroll {...props}>
+          <AppBar>
+            <Toolbar>
+              <Typography variant="h6">Get It Done</Typography>
+            </Toolbar>
+          </AppBar>
+        </ElevationScroll>
+        <Toolbar />
+        <Container>
+          <Box my={2}>
+            <NewGoalForm setGoals={setGoals} globalHashTags={globalHashTags} />
+            <GoalList
+              goals={goals}
+              setGoals={setGoals}
+              globalHashTags={globalHashTags}
+            />
+          </Box>
+        </Container>
+      </ThemeProvider>
     </div>
   );
 }
