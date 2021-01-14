@@ -15,10 +15,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import DirectionsIcon from "@material-ui/icons/Directions";
 
 import SelectTagFilters from "./SelectTagFilters";
 
@@ -117,22 +114,13 @@ function GoalList({ goals, setGoals, globalHashTags }) {
           className={classes.input}
           placeholder="Search Goals"
           inputProps={{ "aria-label": "search Goals" }}
+          value={searchText}
+          onChange={setSearchText}
         />
         <div className={classes.searchIconContainer}>
           <SearchIcon />
         </div>
       </Paper>
-      <TextField
-        id="search-bar"
-        label="Search"
-        className={classes.searchBar}
-        helperText="Search by title or description"
-        fullWidth
-        margin="dense"
-        value={searchText}
-        onChange={setSearchText}
-        variant="outlined"
-      />
       <SelectTagFilters
         selectedHastagIds={selectedHastagIds}
         setSelectedHashTagIds={setSelectedHashTagIds}
