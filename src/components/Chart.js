@@ -12,7 +12,14 @@ function chart({ goals }) {
     datasets: [
       {
         label,
-        data: goals.map((goal) => goal.duration),
+        data: goals.map((goal) =>
+          goal.isActive
+            ? goal.duration +
+              (new Date().getTime() -
+                new Date(goal.latestStartTimeStamp).getTime()) /
+                1000
+            : goal.duration
+        ),
       },
     ],
   };
