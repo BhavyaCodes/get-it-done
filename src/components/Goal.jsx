@@ -127,7 +127,6 @@ function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
             id="asdf9wje9r"
             label="Goal title"
             style={{ margin: 8 }}
-            helperText="Placeholder Helper text"
             fullWidth
             margin="dense"
             value={name}
@@ -142,7 +141,6 @@ function EditGoal({ goal, setGoals, globalHashTags, setEditing }) {
             id="standard-fuadasdll-width-2"
             label="Goal description"
             style={{ margin: 8 }}
-            helperText="Placeholder Helper text"
             fullWidth
             margin="dense"
             value={desc}

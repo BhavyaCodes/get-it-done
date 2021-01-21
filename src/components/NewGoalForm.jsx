@@ -81,7 +81,6 @@ function NewGoalForm({ setGoals, globalHashTags }) {
             id="standard-full-width"
             label="Goal title"
             style={{ margin: 8 }}
-            helperText="Placeholder Helper text"
             fullWidth
             margin="dense"
             value={name}
@@ -92,7 +91,6 @@ function NewGoalForm({ setGoals, globalHashTags }) {
             id="standard-full-width-2"
             label="Goal description"
             style={{ margin: 8 }}
-            helperText="Placeholder Helper text"
             fullWidth
             margin="dense"
             value={desc}
