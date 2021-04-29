@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Get It Done
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**[Hackathon winning](https://www.linkedin.com/posts/mintbean_mintbeanhackathon-mintbean-hackathon-activity-6757030650957619200-xUa8)** goal tracker app made by [@BhavyaCodes](https://github.com/BhavyaCodes) and [@priya28139](https://github.com/priya28139). The challange for the hackathon was to make a web app that can be used to track the progress of time spent on goals you want to achieve.
 
-## Available Scripts
+## Link to live website - [get-it-done-git-master-juggernaut9.vercel.app](https://get-it-done-git-master-juggernaut9.vercel.app/)
 
-In the project directory, you can run:
+## Features -
 
-### `npm start`
+- #### Add goal
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  add goal by with title, description and 5 labels to choose from.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  <img src="/.github/images/add-goal.png">
 
-### `npm test`
+- #### Start/pause timer
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  Start the timer as you start to work towards your goal. you may close the browser or even turn off the computer and the timer will still be running when you come back. However you may pause the timer whenever you want.
 
-### `npm run build`
+  <img src="/.github/images/timer.png">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- #### Edit goal
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  Edit goals by modifying the title, description and labels.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  <img src="/.github/images/edit-mode.png">
 
-### `npm run eject`
+- #### Filter Goals
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  Filter goals by text and/or labels
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  <img src="/.github/images/filter.png">
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- #### Visualize your goals
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  See a visual representation of how much you spent for every goal.
 
-## Learn More
+  <img src="/.github/images/chart.png">
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- #### Dark mode
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  Because its awesome
 
-### Code Splitting
+## Run project on your computer
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- clone the repo
 
-### Analyzing the Bundle Size
+```
+git clone <url>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- install dependencies and start development server
 
-### Making a Progressive Web App
+```
+npm install
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Build and run production app
 
-### Advanced Configuration
+```
+npm run build
+npm install -g server
+serve -s build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Tech used to build this project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<table>
+  <tr>
+    <td align="center"> <img align="center" src="/.github/icons/react.png" alt="react logo" width="100" /></td>
+		<td align="center"> <img align="center" src="/.github/icons/chartjs.svg" alt="chart.js logo" width="100" /></td>	
+		<td align="center"> <img align="center" src="/.github/icons/materialui.svg" alt="material-ui logo" width="100" /></td>
+   <tr>
+      <td align="center"><b> React </b></td>
+			<td align="center"><b> Chart.js </b></td>
+			<td align="center"><b> Material-UI </b></td>
+  </tr>
+</table>
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+
+![GitHub](https://img.shields.io/github/license/BhavyaCodes/get-it-done?style=for-the-badge)
+
+---
+
+### Leave a ⭐️ if you liked this project 😄
