@@ -25,6 +25,7 @@ import Container from "@material-ui/core/Container";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
+import About from "./components/About";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -171,17 +172,26 @@ function App(props) {
                         <Toolbar>
                             <Typography variant="h6">Get It Done</Typography>
                             <div className={classes.navItemsRight}>
-                                <Tooltip title="View statistics page">
-                                    <Button
-                                        type="contained"
-                                        color="secondary"
-                                        onClick={() => {
-                                            history.push("/statistics");
-                                        }}
-                                    >
-                                        Statistics
-                                    </Button>
-                                </Tooltip>
+                                <Button
+                                    type="contained"
+                                    color="secondary"
+                                    onClick={() => {
+                                        history.push("/statistics");
+                                    }}
+                                >
+                                    Statistics
+                                </Button>
+
+                                <Button
+                                    type="contained"
+                                    color="secondary"
+                                    onClick={() => {
+                                        history.push("/about");
+                                    }}
+                                >
+                                    About
+                                </Button>
+
                                 <Tooltip title="Change theme">
                                     <IconButton
                                         aria-label="toggle dark mode"
@@ -244,6 +254,12 @@ function App(props) {
                                 exact
                                 render={(routeProps) => <Chart goals={goals} />}
                             />
+
+                            <Route
+                                path="/about"
+                                exact
+                                render={(routeProps) => <About />}
+                            ></Route>
                         </Switch>
                     </Box>
                 </Container>
