@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import Paper from "@material-ui/core/Paper";
 import { FlashAutoOutlined } from "@material-ui/icons";
@@ -107,14 +108,16 @@ function NewGoalForm({ setGoals, globalHashTags }) {
                     />
                 </div>
                 <div className={classes.fabContainer}>
-                    <Fab
-                        className={classes.fab}
-                        color="primary"
-                        aria-label="add"
-                        type="submit"
-                    >
-                        <AddIcon />
-                    </Fab>
+                    <Tooltip title="Add goal" placement="top">
+                        <Fab
+                            className={classes.fab}
+                            color="primary"
+                            aria-label="add"
+                            type="submit"
+                        >
+                            <AddIcon />
+                        </Fab>
+                    </Tooltip>
                 </div>
             </form>
         </Paper>
